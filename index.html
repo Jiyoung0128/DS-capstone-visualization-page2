@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>렘피카 — 가격 정책 시각화 (v2)</title>
+    <meta name="app-base" content="/DS-capstone-visualization-page2" />
+    <link rel="stylesheet" href="css/app.css" />
+  </head>
+  <body>
+    <header class="header">
+      <h1>렘피카 · 코엑스아티움</h1>
+      <p class="subtitle">회차별 가격 최적화 (CatBoost depth=3, 1만~20만원)</p>
+    </header>
+
+    <main class="layout">
+      <aside class="sidebar">
+        <section class="panel">
+          <h2>공연 일정</h2>
+          <div class="cal-nav">
+            <button type="button" id="cal-prev" aria-label="이전 달">‹</button>
+            <span id="cal-title"></span>
+            <button type="button" id="cal-next" aria-label="다음 달">›</button>
+          </div>
+          <div id="cal-grid" class="cal-grid"></div>
+        </section>
+        <section class="panel">
+          <h2>회차</h2>
+          <div id="round-list" class="round-list">
+            <p class="hint">날짜를 선택하세요</p>
+          </div>
+        </section>
+      </aside>
+
+      <div class="main-col">
+        <p id="opt-placeholder" class="placeholder">
+          날짜와 회차를 선택하면 기존·제안 좌석 배치를 나란히 볼 수 있습니다.
+        </p>
+
+        <div id="load-error" class="load-error" hidden></div>
+
+        <section id="compare-panel" class="panel is-collapsed">
+          <h2 id="compare-title">좌석 배치 — 기존 vs 제안</h2>
+          <div class="compare-grid">
+            <div class="compare-col">
+              <h3>기존 (관측 요금)</h3>
+              <div class="img-wrap">
+                <img
+                  id="baseline-seatmap"
+                  alt="기존 관측 요금 극장 좌석도"
+                  loading="lazy"
+                />
+              </div>
+              <p id="baseline-figure-hint" class="figure-hint" hidden></p>
+            </div>
+            <div class="compare-col">
+              <h3>제안 (grid optimal)</h3>
+              <div class="img-wrap">
+                <img
+                  id="opt-seatmap"
+                  alt="제안 가격 극장 좌석도"
+                  loading="lazy"
+                />
+              </div>
+              <p id="opt-figure-hint" class="figure-hint" hidden></p>
+            </div>
+          </div>
+        </section>
+
+        <section id="kpi-panel" class="panel is-collapsed">
+          <h2>KPI — 기존 vs 제안</h2>
+          <div class="table-wrap">
+            <table id="kpi-table" class="kpi-table"></table>
+          </div>
+        </section>
+
+        <section id="sale-pred-panel" class="panel is-collapsed">
+          <h2 id="sale-pred-title">판매 확률 예측 — 극장 좌석도 (YlOrRd)</h2>
+          <p class="panel-desc">모델이 예측한 좌석별 판매 확률과 실제 판매 여부를 극장 배치로 비교합니다.</p>
+          <div class="pred-grid">
+            <div class="compare-col">
+              <h3>관측가 기준 판매확률</h3>
+              <div class="img-wrap img-wrap--tall">
+                <img id="sale-pred-baseline" alt="관측가 기준 판매 확률 히트맵" loading="lazy" />
+              </div>
+              <p id="sale-pred-baseline-hint" class="figure-hint" hidden></p>
+            </div>
+            <div class="compare-col">
+              <h3>제안가 기준 판매확률</h3>
+              <div class="img-wrap img-wrap--tall">
+                <img id="sale-pred-proposed" alt="제안가 기준 판매 확률 히트맵" loading="lazy" />
+              </div>
+              <p id="sale-pred-proposed-hint" class="figure-hint" hidden></p>
+            </div>
+            <div class="compare-col">
+              <h3>실제 판매 (is_sold)</h3>
+              <div class="img-wrap img-wrap--tall">
+                <img id="sale-pred-actual" alt="실제 판매 여부 히트맵" loading="lazy" />
+              </div>
+              <p id="sale-pred-actual-hint" class="figure-hint" hidden></p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script type="module" src="js/app.js?v=20260604d"></script>
+  </body>
+</html>
